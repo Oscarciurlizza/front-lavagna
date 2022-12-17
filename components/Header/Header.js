@@ -2,11 +2,13 @@ import { Fragment, useState, useEffect } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import {
   Bars3BottomLeftIcon,
+  Bars3CenterLeftIcon,
   BellIcon,
   HeartIcon,
+  MagnifyingGlassIcon,
   ShoppingBagIcon,
   XMarkIcon,
-} from "@heroicons/react/24/solid";
+} from "@heroicons/react/24/outline";
 import Search from "./Search";
 import Profile from "./Profile";
 import Logo from "../Logo";
@@ -15,6 +17,8 @@ import { getMeApi } from "../../api/users";
 import { getCategoryApi } from "../../api/category";
 import Link from "next/link";
 import Cart from "./Cart/Cart";
+import { Bars2Icon, Bars3BottomRightIcon } from "@heroicons/react/20/solid";
+import TopBar from "./TopBar";
 
 const navigation = [
   { name: "Dashboard", href: "#", current: true },
@@ -49,109 +53,130 @@ export default function Header() {
     })();
   }, []);
   return (
-    <Disclosure as="nav" className="sm:bg-white">
-      {({ open }) => (
-        <>
-          <div className="w-full sm:px-0">
-            <div className="relative flex sm:h-24 h-16 items-center justify-between gap-10">
-              <div className="flex items-center sm:hidden">
-                {/* Mobile menu button*/}
-                <Disclosure.Button className="inline-flex items-center justify-center rounded-md text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                  <span className="sr-only">Open main menu</span>
-                  {open ? (
-                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
-                  ) : (
-                    <Bars3BottomLeftIcon
-                      className="block h-6 w-6"
-                      aria-hidden="true"
-                    />
-                  )}
-                </Disclosure.Button>
-              </div>
-              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex flex-shrink-0 items-center sm:w-60">
-                  <Logo />
+    <header className="fixed w-full top-0 left-0 z-10">
+      <TopBar />
+      <Disclosure as="nav" className="bg-gray-100">
+        {({ open }) => (
+          <>
+            <div className="mx-auto max-w-6xl px-2 sm:px-6 lg:px-8 py-1">
+              <div className="relative flex sm:h-20 h-16 items-center justify-between">
+                <div className="flex items-center sm:hidden">
+                  {/* Mobile menu button*/}
+                  <Disclosure.Button className="inline-flex items-center justify-center rounded-md text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                    <span className="sr-only">Open main menu</span>
+                    {open ? (
+                      <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                    ) : (
+                      <Bars3BottomLeftIcon
+                        className="block h-6 w-6"
+                        aria-hidden="true"
+                      />
+                    )}
+                  </Disclosure.Button>
                 </div>
-              </div>
-              <div className="w-full hidden sm:block">
-                <Search />
-              </div>
-              <div className="inset-y-0 right-0 flex items-center sm:static sm:inset-auto gap-5">
-                {/* Profile dropdown */}
-                {!user ? (
-                  <Link
-                    href="signin"
-                    className="text-sm font-medium text-black"
-                  >
-                    SignIn
-                  </Link>
-                ) : (
-                  <Profile user={user} logout={logout} />
-                )}
-
-                <div className="hidden sm:ml-6 sm:flex items-center gap-5">
-                  {/*    <button
-                    type="button"
-                    className="rounded-full p-1 text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                  >
-                    <span className="sr-only">View notifications</span>
-                    <HeartIcon className="h-6 w-6" aria-hidden="true" />
-                  </button> */}
+                <div className="hidden sm:flex flex-1 items-center gap-5 sm:w-52">
                   <button
-                    onClick={() => setOpenCart(true)}
                     type="button"
-                    className="rounded-full p-1 text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    className="bg-white rounded-xl py-3 px-3.5 p-1 text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                   >
-                    <span className="sr-only">View notifications</span>
-                    <ShoppingBagIcon className="h-6 w-6" aria-hidden="true" />
+                    <Bars2Icon className="h-4 w-4" aria-hidden="true" />
                   </button>
                   <Cart openCart={openCart} setOpenCart={setOpenCart} />
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <Disclosure.Panel className="sm:hidden">
-            <div className="space-y-1 px-2 pt-2 pb-3">
-              <div className="py-2">
+                <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                  <div className="flex justify-center flex-shrink-0 items-center w-full">
+                    <Logo />
+                  </div>
+                </div>
+                {/*  <div className="w-full hidden sm:block">
                 <Search />
-              </div>
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                    "block px-3 py-2 rounded-md text-base font-medium"
+              </div> */}
+                <div className="sm:flex flex-1 justify-end inset-y-0 right-0 flex items-center sm:static sm:inset-auto gap-5">
+                  {/* Profile dropdown */}
+                  {!user ? (
+                    <>
+                      <Link
+                        href="signin"
+                        className="text-xs font-normal text-black px-3 border-r border-gray-400"
+                      >
+                        Log in
+                      </Link>
+                      <Link
+                        href="signup"
+                        className="text-xs font-normal text-black"
+                      >
+                        Create account
+                      </Link>
+                    </>
+
+                  ) : (
+                    <Profile user={user} logout={logout} />
                   )}
-                  aria-current={item.current ? "page" : undefined}
-                >
-                  {item.name}
-                </Disclosure.Button>
-              ))}
-              <div className="flex items-center gap-5 px-3">
-                <button
-                  type="button"
-                  className="rounded-full p-1 text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
-                <button
-                  type="button"
-                  className="rounded-full p-1 text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
+
+                  <div className="hidden sm:flex items-center gap-5">
+                    <button
+                      type="button"
+                      className="bg-white rounded-xl py-3 px-3.5 p-1 text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    >
+                      <MagnifyingGlassIcon className="h-4 w-4" aria-hidden="true" />
+                    </button>
+                    <button
+                      onClick={() => setOpenCart(true)}
+                      type="button"
+                      className="flex items-center gap-3 font-bold text-xs bg-white rounded-xl py-3 px-3.5 text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    >
+                      <ShoppingBagIcon className="h-4 w-4" aria-hidden="true" />
+                      99.00 S.
+                    </button>
+                    <Cart openCart={openCart} setOpenCart={setOpenCart} />
+                  </div>
+                </div>
               </div>
             </div>
-          </Disclosure.Panel>
-        </>
-      )}
-    </Disclosure>
+
+            <Disclosure.Panel className="sm:hidden">
+              <div className="space-y-1 px-2 pt-2 pb-3">
+                {{/* <div className="py-2">
+                <Search />
+              </div> */}}
+                {navigation.map((item) => (
+                  <Disclosure.Button
+                    key={item.name}
+                    as="a"
+                    href={item.href}
+                    className={classNames(
+                      item.current
+                        ? "bg-gray-900 text-white"
+                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      "block px-3 py-2 rounded-md text-base font-medium"
+                    )}
+                    aria-current={item.current ? "page" : undefined}
+                  >
+                    {item.name}
+                  </Disclosure.Button>
+                ))}
+                <div className="flex items-center gap-5 px-3">
+                  <button
+                    type="button"
+                    className="rounded-full p-1 text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  >
+                    <span className="sr-only">View notifications</span>
+                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                  </button>
+                  <button
+                    type="button"
+                    className="rounded-full p-1 text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  >
+                    <span className="sr-only">View notifications</span>
+                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                  </button>
+                </div>
+              </div>
+            </Disclosure.Panel>
+          </>
+        )}
+      </Disclosure>
+    </header>
+
   );
 }

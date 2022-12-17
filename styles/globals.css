@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: "Archivo", sans-serif;
+  font-family: "Questrial", sans-serif;
 }
 .loader {
   width: 20px;

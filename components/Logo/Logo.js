@@ -3,8 +3,9 @@ import Link from "next/link";
 
 export default function Logo() {
   return (
-    <Link href="/">
-      <Image src="/logo.svg" width={130} height={150} alt="logo-lavagna" className="w-auto h-auto" />
+    <Link href="/" className="text-xl flex items-center gap-1 font-bold">
+      <Image src="/logo.svg" width={40} height={50} alt="logo-lavagna" />
+      Lavagna.
     </Link>
   );
 }

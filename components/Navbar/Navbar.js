@@ -1,20 +1,29 @@
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { getCategoryApi } from "../../api/category";
 
 export default function Navbar() {
+  const [categories, setCategories] = useState([]);
+  console.log(categories)
+
+  useEffect(() => {
+    (async () => {
+      const response = await getCategoryApi();
+      setCategories(response.data || []);
+    })();
+  }, []);
   return (
-    <nav className="flex justify-end gap-10 py-3.5">
-      <Link href="/" className="text-sm">
-        Home
-      </Link>
-      <Link href="/" className="text-sm">
-        Today's Deals
-      </Link>
-      <Link href="/" className="text-sm">
-        Promotions
-      </Link>
-      <Link href="/" className="text-sm text-blue-500">
-        Trending products
-      </Link>
-    </nav>
+    <div className="mx-auto max-w-6xl px-2 sm:px-6 lg:px-8 pt-28 pb-6">
+      <nav className="sm:flex justify-between items-center">
+        {
+          categories.map(category => (
+            <Link href={`/products/${category.attributes.url}`} className="text-gray-700 text-base font-normal">
+              {category.attributes.title}
+            </Link>
+          ))
+        }
+      </nav>
+    </div>
+
   );
 }

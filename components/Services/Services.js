@@ -8,7 +8,7 @@ import React from "react";
 
 export default function Services() {
   return (
-    <div className="py-3 mt-10">
+    <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
       <div className="sm:flex justify-between gap-10 sm:space-y-0 space-y-7">
         <section className="sm:flex items-center gap-5">
           <span className="text-blue-500 sm:p-3.5 bg-gray-100 rounded-full">
