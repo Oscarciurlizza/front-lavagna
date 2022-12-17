@@ -7,6 +7,7 @@ function classNames(...classes) {
 }
 
 export default function Profile({ user, logout }) {
+  console.log(user);
   return (
     <Menu as="div" className="relative">
       <div>
@@ -17,18 +18,7 @@ export default function Profile({ user, logout }) {
             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
             alt=""
           />
-          {!user ? (
-            <Link href="signin" className="text-xs text-gray-500">
-              Sign in
-              <span className="text-sm text-black font-medium block">
-                Account
-              </span>
-            </Link>
-          ) : (
-            <p>
-              {user?.name}
-            </p>
-          )}
+          <p>{user?.username}</p>
         </Menu.Button>
       </div>
 
@@ -59,13 +49,13 @@ export default function Profile({ user, logout }) {
             <Menu.Item>
               {({ active }) => (
                 <Link
-                  href="#"
+                  href="/wishlist"
                   className={classNames(
                     active ? "bg-gray-100" : "",
                     "block px-4 py-2 text-sm text-gray-700"
                   )}
                 >
-                  Settings
+                  My wishlist
                 </Link>
               )}
             </Menu.Item>

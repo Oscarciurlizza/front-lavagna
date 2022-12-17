@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 import Link from "next/link";
-import { getMeApi, loginApi } from "../../api/users";
+import { getMeApi, loginApi, registerApi } from "../../api/users";
 import { toastError, toastSuccess } from "../../utils/toast";
 import useAuth from "../../hooks/useAuth";
 import Input from "../Form/Input";
@@ -52,6 +52,7 @@ export default function SignUp({ showLoginForm, title }) {
           if (response?.jwt) {
             setLoading(false);
             toastSuccess("User created successfull");
+            router.push("signin");
           } else {
             toastError("Error en registro de usuario");
             setLoading(false);

@@ -17,7 +17,6 @@ export default function ChangeNameForm({ user, logout, setReloadUser }) {
       initialValues={initialValues(username, name, lastname)}
       validationSchema={Yup.object().shape(validationSchema())}
       onSubmit={async (values) => {
-        console.log(values);
         setLoading(true);
         const response = await updateNameApi(id, values, logout);
         if (!response) {

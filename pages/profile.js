@@ -10,8 +10,6 @@ export default function Profile() {
   const [user, setUser] = useState(undefined);
   const { auth, logout, setReloadUser } = useAuth();
   const router = useRouter();
-  console.log(user);
-  console.log(router.asPath);
 
   useEffect(() => {
     (async () => {

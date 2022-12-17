@@ -22,6 +22,7 @@ import {
   PlusIcon,
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
+import Link from "next/link";
 
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
@@ -186,7 +187,7 @@ export default function Products({ products }) {
                                       defaultValue={option.value}
                                       type="checkbox"
                                       defaultChecked={option.checked}
-                                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                      className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                                     />
                                     <label
                                       htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
@@ -340,7 +341,7 @@ export default function Products({ products }) {
                                   defaultValue={option.value}
                                   type="checkbox"
                                   defaultChecked={option.checked}
-                                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                  className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                                 />
                                 <label
                                   htmlFor={`filter-${section.id}-${optionIdx}`}
@@ -362,34 +363,7 @@ export default function Products({ products }) {
               <div className="lg:col-span-3">
                 <div className="grid grid-cols-1 gap-y-10 gap-x-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-10 mt-10">
                   {products.map((product) => (
-                    <div key={product?.id} className="group relative">
-                      <>
-                        <img
-                          src={product?.attributes.poster.data.attributes.url}
-                          alt={product?.attributes.title}
-                          className="w-full object-cover mx-auto"
-                        />
-                      </>
-                      <div className="mt-4 flex justify-between">
-                        <div>
-                          <h3 className="text-sm text-gray-700">
-                            <a href={product?.href}>
-                              <span
-                                aria-hidden="true"
-                                className="absolute inset-0"
-                              />
-                              {product?.attributes.title}
-                            </a>
-                          </h3>
-                          <p className="mt-1 text-sm text-gray-500">
-                            {product?.attributes.description}
-                          </p>
-                        </div>
-                        <p className="text-sm font-medium text-gray-900">
-                          S/.{product?.attributes.price}
-                        </p>
-                      </div>
-                    </div>
+                    <Product key={product.id} product={product} />
                   ))}
                 </div>
               </div>
@@ -398,5 +372,37 @@ export default function Products({ products }) {
         </main>
       </div>
     </div>
+  );
+}
+
+function Product({ product }) {
+  return (
+    <Link href={`/${product.attributes.url}`}>
+      <div key={product?.id} className="group relative">
+        <div className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-96">
+          <img
+            src={product?.attributes.poster.data.attributes.url}
+            alt={product?.attributes.title}
+            className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+          />
+        </div>
+        <div className="mt-4 flex justify-between">
+          <div>
+            <h3 className="text-sm text-gray-700">
+              <a href={product?.href}>
+                <span aria-hidden="true" className="absolute inset-0" />
+                {product?.attributes.title}
+              </a>
+            </h3>
+            <p className="mt-1 text-sm text-gray-500">
+              {product?.attributes.description}
+            </p>
+          </div>
+          <p className="text-sm font-medium text-gray-900">
+            S/.{product?.attributes.price}
+          </p>
+        </div>
+      </div>
+    </Link>
   );
 }

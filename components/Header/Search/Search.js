@@ -1,7 +1,8 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { Fragment } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import Router, { useRouter } from "next/router";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -10,11 +11,7 @@ export default function Search() {
   return (
     <div className="flex justify-end border">
       <section className="w-full flex sm:py-3 py-1">
-        <input
-          type="text"
-          placeholder="Search for product..."
-          className="w-full sm:text-sm text-xs px-4 outline-none"
-        />
+        <InputSearch />
         <Menu as="div" className="w-56 relative text-left sm:block hidden">
           <div>
             <Menu.Button className="inline-flex text-left w-full justify-center px-3 bg-gray-100 rounded-md sm:text-sm text-xs font-normal text-gray-400 shadow-sm hover:bg-gray-50 ">
@@ -108,5 +105,29 @@ export default function Search() {
         </span>
       </span>
     </div>
+  );
+}
+
+function InputSearch() {
+  const router = useRouter();
+  const [searchStr, setSearchStr] = useState(router?.query.query || "");
+  const [load, setLoad] = useState(false);
+
+  useEffect(() => {
+    if (load) {
+      router.push(`/search?query=${searchStr}`);
+    }
+    setLoad(true);
+  }, [searchStr]);
+
+  return (
+    <input
+      id="search-product"
+      type="text"
+      value={searchStr}
+      onChange={(e) => setSearchStr(e.target.value)}
+      placeholder="Search for product..."
+      className="w-full sm:text-sm text-xs px-4 outline-none"
+    />
   );
 }

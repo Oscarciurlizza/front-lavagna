@@ -43,7 +43,6 @@ export const getMeApi = async (logout) => {
   try {
     const url = `${BASE_PATH}/api/users/me`;
     const result = await authFetch(url, null, logout);
-    console.log(url);
     return result ? result : null;
   } catch (error) {
     console.log(error);

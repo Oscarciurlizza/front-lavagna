@@ -13,6 +13,8 @@ import Logo from "../Logo";
 import useAuth from "../../hooks/useAuth";
 import { getMeApi } from "../../api/users";
 import { getCategoryApi } from "../../api/category";
+import Link from "next/link";
+import Cart from "./Cart/Cart";
 
 const navigation = [
   { name: "Dashboard", href: "#", current: true },
@@ -27,11 +29,11 @@ function classNames(...classes) {
 
 export default function Header() {
   const [categories, setCategories] = useState([]);
-  console.log(categories.data);
 
   const { auth, logout } = useAuth();
 
   const [user, setUser] = useState("");
+  const [openCart, setOpenCart] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -39,7 +41,6 @@ export default function Header() {
       setUser(response);
     })();
   }, [auth]);
-  console.log(user);
 
   useEffect(() => {
     (async () => {
@@ -75,24 +76,36 @@ export default function Header() {
               <div className="w-full hidden sm:block">
                 <Search />
               </div>
-              <div className=" inset-y-0 right-0 flex items-center sm:static sm:inset-auto gap-5">
+              <div className="inset-y-0 right-0 flex items-center sm:static sm:inset-auto gap-5">
                 {/* Profile dropdown */}
-                <Profile user={user} logout={logout} />
+                {!user ? (
+                  <Link
+                    href="signin"
+                    className="text-sm font-medium text-black"
+                  >
+                    SignIn
+                  </Link>
+                ) : (
+                  <Profile user={user} logout={logout} />
+                )}
+
                 <div className="hidden sm:ml-6 sm:flex items-center gap-5">
-                  <button
+                  {/*    <button
                     type="button"
                     className="rounded-full p-1 text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                   >
                     <span className="sr-only">View notifications</span>
                     <HeartIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
+                  </button> */}
                   <button
+                    onClick={() => setOpenCart(true)}
                     type="button"
                     className="rounded-full p-1 text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                   >
                     <span className="sr-only">View notifications</span>
                     <ShoppingBagIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
+                  <Cart openCart={openCart} setOpenCart={setOpenCart} />
                 </div>
               </div>
             </div>
