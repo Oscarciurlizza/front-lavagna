@@ -45,7 +45,7 @@ export default function Home({ categories, drinks, happy }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const resCategory = await fetch(`${BASE_PATH}/api/categories?populate=*`);
 
   const resDrinks = await fetch(
