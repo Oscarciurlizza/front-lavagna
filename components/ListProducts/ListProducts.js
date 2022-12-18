@@ -1,16 +1,16 @@
-import { ArrowLongRightIcon } from "@heroicons/react/20/solid";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function ListProducts({ products }) {
+export default function ListProducts({ title, subtitle, products }) {
   return (
     <>
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-12">
-        <h2 className="flex flex-col ">
-          <p className="sm:text-4xl text-lg font-bold tracking-tight text-black">Shop</p>
-          <p className="letter">your favorite</p>
-
+      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-32">
+        <h2 className="flex flex-col">
+          <p className="sm:text-4xl text-lg font-extrabold tracking-whide text-black">
+            {title}
+          </p>
+          <p className="letter text-4xl mt-3">{subtitle}</p>
         </h2>
 
         <>
@@ -26,15 +26,16 @@ export default function ListProducts({ products }) {
 }
 
 function Product({ product }) {
+  const { url, poster, title, price } = product?.attributes;
   return (
-    <Link href={`/${product.attributes.url}`}>
+    <Link href={`/${url}`}>
       <div className="flex justify-between flex-col">
         <section className="h-80 w-full bg-white flex items-center justify-center rounded-3xl relative">
           <Image
             width={330}
             height={300}
-            src={product?.attributes.poster.data.attributes.url}
-            alt={product?.attributes.title}
+            src={poster.data.attributes.url}
+            alt={title}
             className="h-52 object-contain w-full"
           />
           <button
@@ -45,14 +46,11 @@ function Product({ product }) {
           </button>
         </section>
         <section className="h-20 flex flex-col justify-end mt-4">
-          <Link href={product?.attributes.url} className="text-base text-gray-600">
-            {product?.attributes.title}
+          <Link href={url} className="text-base text-gray-600">
+            {title}
           </Link>
-          <h5 className="text-lg font-bold text-gray-900 mt-2">
-            S/.{product?.attributes.price}
-          </h5>
+          <h5 className="text-lg font-bold text-gray-900 mt-2">S/.{price}</h5>
         </section>
-
       </div>
     </Link>
   );

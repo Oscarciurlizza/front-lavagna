@@ -17,7 +17,6 @@ import { getMeApi } from "../../api/users";
 import { getCategoryApi } from "../../api/category";
 import Link from "next/link";
 import Cart from "./Cart/Cart";
-import { Bars2Icon, Bars3BottomRightIcon } from "@heroicons/react/20/solid";
 import TopBar from "./TopBar";
 
 const navigation = [
@@ -53,9 +52,9 @@ export default function Header() {
     })();
   }, []);
   return (
-    <header className="fixed w-full top-0 left-0 z-10">
+    <header className="fixed w-full top-0 left-0 z-20">
       <TopBar />
-      <Disclosure as="nav" className="bg-gray-100">
+      <Disclosure as="nav" className="bg-gray-200">
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-1">
@@ -79,7 +78,10 @@ export default function Header() {
                     type="button"
                     className="bg-white rounded-xl py-3 px-3.5 p-1 text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                   >
-                    <Bars2Icon className="h-4 w-4" aria-hidden="true" />
+                    <Bars3CenterLeftIcon
+                      className="h-5 w-5"
+                      aria-hidden="true"
+                    />
                   </button>
                   <Cart openCart={openCart} setOpenCart={setOpenCart} />
                 </div>
@@ -108,7 +110,6 @@ export default function Header() {
                         Create account
                       </Link>
                     </div>
-
                   ) : (
                     <Profile user={user} logout={logout} />
                   )}
@@ -118,14 +119,17 @@ export default function Header() {
                       type="button"
                       className="bg-white rounded-xl py-3 px-3.5 p-1 text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     >
-                      <MagnifyingGlassIcon className="h-4 w-4" aria-hidden="true" />
+                      <MagnifyingGlassIcon
+                        className="h-5 w-5"
+                        aria-hidden="true"
+                      />
                     </button>
                     <button
                       onClick={() => setOpenCart(true)}
                       type="button"
                       className="flex items-center gap-3 font-bold text-xs bg-white rounded-xl py-3 px-3.5 text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     >
-                      <ShoppingBagIcon className="h-4 w-4" aria-hidden="true" />
+                      <ShoppingBagIcon className="h-5 w-5" aria-hidden="true" />
                       99.00 S.
                     </button>
                     <Cart openCart={openCart} setOpenCart={setOpenCart} />
@@ -136,9 +140,13 @@ export default function Header() {
 
             <Disclosure.Panel className="sm:hidden">
               <div className="space-y-1 px-2 pt-2 pb-3">
-                {{/* <div className="py-2">
+                {
+                  {
+                    /* <div className="py-2">
                 <Search />
-              </div> */}}
+              </div> */
+                  }
+                }
                 {navigation.map((item) => (
                   <Disclosure.Button
                     key={item.name}
@@ -177,6 +185,5 @@ export default function Header() {
         )}
       </Disclosure>
     </header>
-
   );
 }

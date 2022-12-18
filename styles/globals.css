@@ -5,7 +5,6 @@
 body {
   font-family: "Questrial", sans-serif;
 }
-
 html,
 body {
   padding: 0;
@@ -15,7 +14,6 @@ body {
 * {
   box-sizing: border-box;
 }
-
 
 .loader {
   width: 20px;
@@ -41,7 +39,6 @@ body {
 .letter {
   font-style: normal;
   font-weight: 500;
-  font-size: 40px;
   letter-spacing: 0.05em;
   -webkit-text-fill-color: #f6f6f6;
   -webkit-text-stroke-width: 1px;
@@ -54,23 +51,8 @@ body {
 }
 
 .swiper-slide {
-  text-align: center;
   font-size: 18px;
-  background: #fff;
-
-  /* Center slide text vertically */
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
+  min-height: 570px;
 }
 
 .swiper-slide img {

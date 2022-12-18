@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { getLastProductsApi } from "../api/product";
 import Banner from "../components/Banner";
-import Collections from "../components/Collections";
 import Layout from "../components/Layout";
 import ListProducts from "../components/ListProducts";
 import Navbar from "../components/Navbar";
+import ProductDetail from "../components/ProductDetail";
+import Reviews from "../components/Reviews/Reviews";
 import Services from "../components/Services";
-import Slider from "../components/Slider";
+import { BASE_PATH } from "../utils/constants";
 
-export default function Home() {
+export default function Home({ categories, drinks, happy }) {
   const [products, setProducts] = useState(null);
 
   useEffect(() => {
@@ -20,16 +21,48 @@ export default function Home() {
 
   return (
     <Layout title="Lavagna - Home">
-      <Navbar />
+      <Navbar categories={categories} />
       <Banner />
       <Services />
       {!products && <span className="loader"></span>}
-      {products === null ? (
+      {drinks === null ? (
         <h2>ho hay juegos</h2>
       ) : (
-        <ListProducts products={products} />
+        <ListProducts
+          title="Choose"
+          subtitle="Your Alcohol"
+          products={drinks}
+        />
+      )}
+      {happy === null ? (
+        <h2>ho hay juegos</h2>
+      ) : (
+        <ListProducts title="New" subtitle="Happy Hour" products={happy} />
       )}
       <Reviews />
+      <ProductDetail />
     </Layout>
   );
+}
+
+export async function getStaticProps() {
+  const resCategory = await fetch(`${BASE_PATH}/api/categories?populate=*`);
+
+  const resDrinks = await fetch(
+    `${BASE_PATH}/api/products?populate=*&filters[category][url][$eq]=drinks-and-alcohol`
+  );
+  const resHappy = await fetch(
+    `${BASE_PATH}/api/products?populate=*&filters[category][url][$eq]=happy-hour-1`
+  );
+  const dataCategory = await resCategory.json();
+  const dataDrinks = await resDrinks.json();
+  const dataHappy = await resHappy.json();
+
+  return {
+    props: {
+      categories: dataCategory.data,
+      drinks: dataDrinks.data,
+      happy: dataHappy.data,
+    },
+  };
 }
