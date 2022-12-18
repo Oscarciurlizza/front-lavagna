@@ -19,6 +19,7 @@
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.0",
     "react-jwt": "^1.1.7",
+    "swiper": "^8.4.5",
     "yup": "^0.32.11"
   },
   "devDependencies": {

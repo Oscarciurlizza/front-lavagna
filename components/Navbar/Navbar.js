@@ -13,7 +13,7 @@ export default function Navbar() {
     })();
   }, []);
   return (
-    <div className="mx-auto max-w-6xl px-2 sm:px-6 lg:px-8 pt-28 pb-6">
+    <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 pt-28 pb-6">
       <nav className="sm:flex justify-between items-center">
         {
           categories.map(category => (

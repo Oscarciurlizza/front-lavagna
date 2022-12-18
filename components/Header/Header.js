@@ -58,7 +58,7 @@ export default function Header() {
       <Disclosure as="nav" className="bg-gray-100">
         {({ open }) => (
           <>
-            <div className="mx-auto max-w-6xl px-2 sm:px-6 lg:px-8 py-1">
+            <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-1">
               <div className="relative flex sm:h-20 h-16 items-center justify-between">
                 <div className="flex items-center sm:hidden">
                   {/* Mobile menu button*/}
@@ -94,20 +94,20 @@ export default function Header() {
                 <div className="sm:flex flex-1 justify-end inset-y-0 right-0 flex items-center sm:static sm:inset-auto gap-5">
                   {/* Profile dropdown */}
                   {!user ? (
-                    <>
+                    <div>
                       <Link
                         href="signin"
-                        className="text-xs font-normal text-black px-3 border-r border-gray-400"
+                        className="text-xs font-normal text-black py-1 px-3 border-r border-gray-400"
                       >
                         Log in
                       </Link>
                       <Link
                         href="signup"
-                        className="text-xs font-normal text-black"
+                        className="text-xs font-normal py-1 px-3 text-black"
                       >
                         Create account
                       </Link>
-                    </>
+                    </div>
 
                   ) : (
                     <Profile user={user} logout={logout} />

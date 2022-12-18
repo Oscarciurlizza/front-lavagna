@@ -6,6 +6,7 @@ import Layout from "../components/Layout";
 import ListProducts from "../components/ListProducts";
 import Navbar from "../components/Navbar";
 import Services from "../components/Services";
+import Slider from "../components/Slider";
 
 export default function Home() {
   const [products, setProducts] = useState(null);
@@ -21,13 +22,14 @@ export default function Home() {
     <Layout title="Lavagna - Home">
       <Navbar />
       <Banner />
+      <Services />
       {!products && <span className="loader"></span>}
       {products === null ? (
         <h2>ho hay juegos</h2>
       ) : (
         <ListProducts products={products} />
       )}
-      <Collections />
+      <Reviews />
     </Layout>
   );
 }
