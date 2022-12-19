@@ -5,8 +5,8 @@ export const toastSuccess = (message) => {
     position: "top-center",
     autoClose: 5000,
     style: {
-      backgroundColor: "#e0f2fe",
-      fontWeight: "bold",
+      backgroundColor: "#eff6ff",
+      fontWeight: "normal",
       fontSize: ".9rem",
       border: "2px solid #000",
     },
@@ -18,8 +18,8 @@ export const toastError = (message) => {
     position: "top-center",
     autoClose: 5000,
     style: {
-      backgroundColor: "#fecaca",
-      fontWeight: "bold",
+      backgroundColor: "#fef2f2",
+      fontWeight: "normal",
       fontSize: ".9rem",
       border: "2px solid #000",
     },

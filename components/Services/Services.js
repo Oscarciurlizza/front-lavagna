@@ -6,7 +6,7 @@ export default function Services() {
       <div className="lg:flex lg:justify-between  items-center gap-x-10">
         <section className="w-full bg-gray-100 flex justify-between items-center p-10 rounded-3xl">
           <div>
-            <h2 className="text-3xl font-bold relative z-10 w-min before:content-[''] before:inline-block before:absolute before:w-full before:h-3 before:bg-red-200 before:-z-10 before:bottom-0">
+            <h2 className="text-3xl font-bold relative z-10 w-min before:content-[''] before:inline-block before:absolute before:w-full before:h-3 before:bg-blue-200 before:-z-10 before:bottom-0">
               Search
             </h2>
             <p className="max-w-xs text-base font-normal mt-3">
@@ -21,7 +21,7 @@ export default function Services() {
         </section>
         <section className="w-full bg-gray-100 flex justify-between items-center py-10 px-8 rounded-3xl">
           <div>
-            <h2 className="text-3xl font-bold relative z-10 w-min before:content-[''] before:inline-block before:absolute before:w-full before:h-3 before:bg-red-200 before:-z-10 before:bottom-0">
+            <h2 className="text-3xl font-bold relative z-10 w-min before:content-[''] before:inline-block before:absolute before:w-full before:h-3 before:bg-blue-200 before:-z-10 before:bottom-0">
               Tap
             </h2>
             <p className="max-w-xs text-base font-normal mt-3">
@@ -38,7 +38,7 @@ export default function Services() {
         </section>
         <section className="w-full bg-gray-100 flex justify-between items-center p-10 rounded-3xl">
           <div>
-            <h2 className="text-3xl font-bold relative before:content-[''] z-10 w-min before:inline-block before:absolute before:w-full before:h-3 before:bg-red-200 before:-z-10 before:bottom-0">
+            <h2 className="text-3xl font-bold relative before:content-[''] z-10 w-min before:inline-block before:absolute before:w-full before:h-3 before:bg-blue-200 before:-z-10 before:bottom-0">
               Drink
             </h2>
             <p className="max-w-xs text-base font-normal mt-3">

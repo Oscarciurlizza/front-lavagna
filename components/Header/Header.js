@@ -7,6 +7,7 @@ import {
   HeartIcon,
   MagnifyingGlassIcon,
   ShoppingBagIcon,
+  ShoppingCartIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import Search from "./Search";
@@ -54,7 +55,7 @@ export default function Header() {
   return (
     <header className="fixed w-full top-0 left-0 z-20">
       <TopBar />
-      <Disclosure as="nav" className="bg-gray-200">
+      <Disclosure as="nav" className="bg-gray-100">
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-1">
@@ -129,7 +130,7 @@ export default function Header() {
                       type="button"
                       className="flex items-center gap-3 font-bold text-xs bg-white rounded-xl py-3 px-3.5 text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     >
-                      <ShoppingBagIcon className="h-5 w-5" aria-hidden="true" />
+                      <ShoppingCartIcon className="h-5 w-5" aria-hidden="true" />
                       99.00 S.
                     </button>
                     <Cart openCart={openCart} setOpenCart={setOpenCart} />

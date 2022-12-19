@@ -28,7 +28,7 @@ export default function Reviews() {
           modules={[]}
           className="mySwiper"
         >
-          <SwiperSlide className="bg-gray-100 py-12 px-9 mt-20 rounded-4xl">
+          <SwiperSlide className="bg-gray-50 py-12 px-9 mt-20 rounded-4xl">
             <section>
               <h3 className="text-black text-sm font-semibold uppercase">
                 Best Scotch
@@ -48,7 +48,7 @@ export default function Reviews() {
               </p>
             </section>{" "}
           </SwiperSlide>
-          <SwiperSlide className="bg-gray-100 py-12 px-9 mt-20 rounded-4xl">
+          <SwiperSlide className="bg-gray-50 py-12 px-9 mt-20 rounded-4xl">
             <section>
               <h3 className="text-black text-sm font-semibold uppercase">
                 awesome crown royal
@@ -67,7 +67,7 @@ export default function Reviews() {
               </p>
             </section>{" "}
           </SwiperSlide>
-          <SwiperSlide className="bg-gray-100 py-12 px-9 mt-20 rounded-4xl">
+          <SwiperSlide className="bg-gray-50 py-12 px-9 mt-20 rounded-4xl">
             <section>
               <h3 className="text-black text-sm font-semibold uppercase">
                 sweet Smirnoff Watermelon
@@ -86,7 +86,7 @@ export default function Reviews() {
               </p>
             </section>
           </SwiperSlide>
-          <SwiperSlide className="bg-gray-100 py-12 px-9 mt-20 rounded-4xl">
+          <SwiperSlide className="bg-gray-50 py-12 px-9 mt-20 rounded-4xl">
             <section>
               <h3 className="text-black text-sm font-semibold uppercase">
                 Best Scotch
@@ -106,7 +106,7 @@ export default function Reviews() {
               </p>
             </section>
           </SwiperSlide>
-          <SwiperSlide className="bg-gray-100 py-12 px-9 mt-20 rounded-4xl">
+          <SwiperSlide className="bg-gray-50 py-12 px-9 mt-20 rounded-4xl">
             <section>
               <h3 className="text-black text-sm font-semibold uppercase">
                 Best Scotch
@@ -126,7 +126,7 @@ export default function Reviews() {
               </p>
             </section>{" "}
           </SwiperSlide>
-          <SwiperSlide className="bg-gray-100 py-12 px-9 mt-20 rounded-4xl">
+          <SwiperSlide className="bg-gray-50 py-12 px-9 mt-20 rounded-4xl">
             <section>
               <h3 className="text-black text-sm font-semibold uppercase">
                 Best Scotch

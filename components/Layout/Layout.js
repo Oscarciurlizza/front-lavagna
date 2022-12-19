@@ -13,7 +13,7 @@ export default function Layout({ title, children }) {
           <meta name="description" content="Ecommerce-Lavagna" />
         </Head>
         <Header />
-        <main className="bg-gray-100">{children}</main>
+        <main className="bg-gray-50">{children}</main>
         <Footer />
       </>
     </>
