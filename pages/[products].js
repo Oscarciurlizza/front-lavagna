@@ -19,7 +19,7 @@ export default function Products({ product, theLastProducts }) {
     })();
   }, [query]);
   return (
-    <Layout>
+    <Layout title={product.attributes.title}>
       {!singleProduct ? (
         <h1>no hay productos</h1>
       ) : (
