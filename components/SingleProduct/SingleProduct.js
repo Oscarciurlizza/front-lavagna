@@ -133,7 +133,7 @@ export default function SingleProduct({ product: singleProduct }) {
 
   return (
     <div className="bg-white">
-      <div className="py-32">
+      <div className="pt-32">
         <div className="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-start">
           <div className="max-w-xl mx-auto w-full">
             {/* Image gallery */}

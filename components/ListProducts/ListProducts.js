@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function ListProducts({ title, subtitle, products }) {
   return (
-    <>
+    <div className="bg-gray-100">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-32">
         <h2 className="flex flex-col">
           <p className="sm:text-4xl text-lg font-extrabold tracking-whide text-black">
@@ -21,7 +21,7 @@ export default function ListProducts({ title, subtitle, products }) {
           </div>
         </>
       </div>
-    </>
+    </div>
   );
 }
 
