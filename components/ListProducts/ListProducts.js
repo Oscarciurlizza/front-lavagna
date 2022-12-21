@@ -1,20 +1,21 @@
 import { PlusIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
+import { formatMoney } from "../../utils/format";
 
 export default function ListProducts({ title, subtitle, products }) {
+  console.log(products)
   return (
-    <div className="bg-gray-100">
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-32">
+    <div className={`${!title ? "bg-white" : "bg-gray-100"}`}>
+      <div className={`${!title ? "py-0" : "py-32"} mx-auto max-w-7xl px-2 sm:px-6 lg:px-8`}>
         <h2 className="flex flex-col">
           <p className="sm:text-4xl text-lg font-extrabold tracking-whide text-black">
             {title}
           </p>
           <p className="letter text-4xl mt-3">{subtitle}</p>
         </h2>
-
         <>
-          <div className="grid grid-cols-1 gap-y-10 gap-x-10 sm:grid-cols-3 lg:grid-cols-4 xl:gap-x-10 mt-10">
+          <div className={`${!title ? "sm:grid-cols-3" : "lg:grid-cols-4"} grid grid-cols-1 gap-y-10 gap-x-10 xl:gap-x-10 mt-10`}>
             {products.map((product) => (
               <Product key={product.id} product={product} />
             ))}
@@ -49,7 +50,7 @@ function Product({ product }) {
           <Link href={url} className="text-base text-gray-600">
             {title}
           </Link>
-          <h5 className="text-lg font-bold text-gray-900 mt-2">S/.{price}</h5>
+          <h5 className="text-lg font-bold text-gray-900 mt-2">{formatMoney(price)}</h5>
         </section>
       </div>
     </Link>

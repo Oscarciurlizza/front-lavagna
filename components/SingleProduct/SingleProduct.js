@@ -15,57 +15,9 @@ import useAuth from "../../hooks/useAuth";
 import useCart from "../../hooks/useCart";
 import { toastError, toastSuccess } from "../../utils/toast";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+import { formatMoney } from "../../utils/format";
+import Navbar from "../Navbar";
 
-const product = {
-  name: "Zip Tote Basket",
-  price: "$140",
-  rating: 4,
-  images: [
-    {
-      id: 1,
-      name: "Angled view",
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-03-product-01.jpg",
-      alt: "Angled front view with bag zipped and handles upright.",
-    },
-    {
-      id: 2,
-      name: "Angled view",
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-03-product-02.jpg",
-      alt: "Angled front view with bag zipped and handles upright.",
-    },
-  ],
-  colors: [
-    {
-      name: "Washed Black",
-      bgColor: "bg-gray-700",
-      selectedColor: "ring-gray-700",
-    },
-    { name: "White", bgColor: "bg-white", selectedColor: "ring-gray-400" },
-    {
-      name: "Washed Gray",
-      bgColor: "bg-gray-500",
-      selectedColor: "ring-gray-500",
-    },
-  ],
-  description: `
-    <p>The Zip Tote Basket is the perfect midpoint between shopping tote and comfy backpack. With convertible straps, you can hand carry, should sling, or backpack this convenient and spacious bag. The zip top and durable canvas construction keeps your goods protected for all-day use.</p>
-  `,
-  details: [
-    {
-      name: "Features",
-      items: [
-        "Multiple strap configurations",
-        "Spacious interior with top zip",
-        "Leather handle and tabs",
-        "Interior dividers",
-        "Stainless strap loops",
-        "Double stitched construction",
-        "Water-resistant",
-      ],
-    },
-    // More sections...
-  ],
-};
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -74,8 +26,6 @@ function classNames(...classes) {
 export default function SingleProduct({ product: singleProduct }) {
   const { title, price, description, discount, gallery, url, poster, category } =
     singleProduct?.attributes;
-  console.log(product)
-
   const { auth, logout } = useAuth();
   const [isFavorite, setIsFavorite] = useState(false);
   const [quantity, setQuantity] = useState(0);
@@ -92,6 +42,7 @@ export default function SingleProduct({ product: singleProduct }) {
           singleProduct.id,
           logout
         );
+        console.log(response)
         if (response.data.length > 0) setIsFavorite(true);
         else setIsFavorite(false);
       }
@@ -101,7 +52,8 @@ export default function SingleProduct({ product: singleProduct }) {
 
   const addFavorite = async () => {
     if (auth) {
-      await addFavoriteApi(auth.idUser, singleProduct.id, logout);
+      const response = await addFavoriteApi(auth.idUser, singleProduct.id, logout);
+      console.log(auth.idUser);
       setReloadFavorite(true);
     }
   };
@@ -123,6 +75,8 @@ export default function SingleProduct({ product: singleProduct }) {
       quantity,
     };
 
+
+
     if (quantity < 1 || !auth) {
       toastError("No puede agregar");
     } else {
@@ -132,133 +86,132 @@ export default function SingleProduct({ product: singleProduct }) {
   };
 
   return (
-    <div className="bg-white">
-      <div className="pt-32">
-        <div className="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-start">
-          <div className="max-w-xl mx-auto w-full">
-            {/* Image gallery */}
-            <Tab.Group as="div" className="flex flex-col-reverse">
-              {/* Image selector */}
-              <div className="hidden mt-6 w-full max-w-2xl mx-auto sm:block lg:max-w-none">
-                <Tab.List className="grid grid-cols-4 gap-6">
-                  {gallery.data.map((image) => (
-                    <Tab
-                      key={image.id}
-                      className="relative h-24 bg-white rounded-md flex items-center justify-center text-sm font-medium uppercase text-gray-900 cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring focus:ring-offset-4 focus:ring-opacity-50"
-                    >
-                      {({ selected }) => (
-                        <>
-                          <span className="sr-only">{image.attributes.name}</span>
-                          <span className="absolute inset-0 rounded-md overflow-hidden">
-                            <img
-                              src={image.attributes.url}
-                              alt={title}
-                              className="w-full h-full object-center object-cover"
+    <>
+      <div className="bg-white">
+        <div className="">
+          <div className="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-start">
+            <div className="max-w-xl mx-auto w-full">
+              {/* Image gallery */}
+              <Tab.Group as="div" className="flex flex-col-reverse">
+                {/* Image selector */}
+                <div className="hidden mt-6 w-full max-w-2xl mx-auto sm:block lg:max-w-none">
+                  <Tab.List className="grid grid-cols-4 gap-6">
+                    {gallery.data.map((image) => (
+                      <Tab
+                        key={image.id}
+                        className="relative h-24 bg-white rounded-md flex items-center justify-center text-sm font-medium uppercase text-gray-900 cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring focus:ring-offset-4 focus:ring-opacity-50"
+                      >
+                        {({ selected }) => (
+                          <>
+                            <span className="sr-only">{image.attributes.name}</span>
+                            <span className="absolute inset-0 rounded-md overflow-hidden">
+                              <img
+                                src={image.attributes.url}
+                                alt={title}
+                                className="w-full h-full object-center object-cover"
+                              />
+                            </span>
+                            <span
+                              className={classNames(
+                                selected ? "ring-blue-500" : "ring-transparent",
+                                "absolute inset-0 rounded-md ring-2 ring-offset-2 pointer-events-none"
+                              )}
+                              aria-hidden="true"
                             />
-                          </span>
-                          <span
-                            className={classNames(
-                              selected ? "ring-blue-500" : "ring-transparent",
-                              "absolute inset-0 rounded-md ring-2 ring-offset-2 pointer-events-none"
-                            )}
-                            aria-hidden="true"
-                          />
-                        </>
-                      )}
-                    </Tab>
-                  ))}
-                </Tab.List>
-              </div>
-
-              <Tab.Panels className="w-full aspect-w-1 aspect-h-1">
-                {gallery.data.map((image) => (
-                  <Tab.Panel key={image.id}>
-                    <img
-                      src={image.attributes.url}
-                      alt={title}
-                      className="w-full h-full object-center object-cover sm:rounded-lg"
-                    />
-                  </Tab.Panel>
-                ))}
-              </Tab.Panels>
-            </Tab.Group>
-          </div>
-          {/* Product info */}
-          <div className="h-full flex justify-center flex-col bg-gray-100">
-            <div className="max-w-2xl py-16 sm:py-32 lg:max-w-xl lg:pl-10">
-              <span className="text-sm text-gray-400">{category.data.attributes.title}</span>
-              <h1 className="max-w-xs text-2xl font-medium tracking-tight text-gray-900 mt-3">
-                {title}
-              </h1>
-
-              <div className="flex justify-between mt-10">
-                <>
-                  <select
-                    onChange={(e) => setQuantity(+e.target.value)}
-                    name="quantity"
-                    id="quantity"
-                    className="bg-transparent border rounded-3xl px-6 py-1"
-                  >
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                  </select>
-                </>
-                <h2 className="sr-only">Product information</h2>
-                <p className="text-3xl font-bold relative z-10 w-min before:content-[''] before:inline-block before:absolute before:w-full before:h-3 before:bg-blue-200 before:-z-10 before:bottom-0">
-                  S/.{price}
-                </p>
-              </div>
-
-              {/* Reviews */}
-              <div className="mt-6">
-                <h3 className="sr-only">Description</h3>
-
-                <div
-                  className="text-sm text-gray-500 space-y-6 max-w-xs mt-10 leading-relaxed"
-                  dangerouslySetInnerHTML={{ __html: description }}
-                />
-              </div>
-
-              <form className="mt-6" onSubmit={handleSubmit}>
-                <div className="mt-10 flex sm:flex-co">
-
-                  <button
-                    type="submit"
-                    className="flex items-center gap-3 uppercase max-w-xs flex-1 bg-blue-600 border border-transparent rounded-xl py-4 px-8 flex items-center justify-center text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-blue-500 sm:w-full"
-                  >
-                    <ShoppingCartIcon
-                      className="h-4 w-4 flex-shrink-0"
-                      aria-hidden="true"
-                    />
-                    Add to bag
-                  </button>
-                  <button
-                    type="button"
-                    className="ml-4 py-3 px-3 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500"
-                  >
-                    <HeartIcon
-                      onClick={isFavorite ? removeFavorite : addFavorite}
-                      className={`${isFavorite && "text-red-400"
-                        } "h-6 w-6 flex-shrink-0"`}
-                      aria-hidden="true"
-                    />
-                    <span className="sr-only">Add to favorites</span>
-                  </button>
+                          </>
+                        )}
+                      </Tab>
+                    ))}
+                  </Tab.List>
                 </div>
-              </form>
 
-              <section aria-labelledby="details-heading" className="mt-12">
-                <h2 id="details-heading" className="sr-only">
-                  Additional details
-                </h2>
+                <Tab.Panels className="w-full aspect-w-1 aspect-h-1">
+                  {gallery.data.map((image) => (
+                    <Tab.Panel key={image.id}>
+                      <img
+                        src={image.attributes.url}
+                        alt={title}
+                        className="w-full h-full object-center object-cover sm:rounded-lg"
+                      />
+                    </Tab.Panel>
+                  ))}
+                </Tab.Panels>
+              </Tab.Group>
+            </div>
+            {/* Product info */}
+            <div className="h-full flex justify-center flex-col bg-gray-100">
+              <div className="max-w-2xl py-16 sm:py-32 lg:max-w-xl lg:pl-10">
+                <span className="text-sm text-gray-400">{category.data.attributes.title}</span>
+                <h1 className="max-w-xs text-2xl font-medium tracking-tight text-gray-900 mt-3">
+                  {title}
+                </h1>
 
-                <div className="border-t divide-y divide-gray-200">
-                  {product.details.map((detail) => (
+                <div className="flex justify-between mt-10">
+                  <>
+                    <select
+                      onChange={(e) => setQuantity(+e.target.value)}
+                      name="quantity"
+                      id="quantity"
+                      className="bg-transparent border rounded-3xl px-6 py-1"
+                    >
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                    </select>
+                  </>
+                  <h2 className="sr-only">Product information</h2>
+                  <p className="text-3xl font-bold relative z-10 w-min before:content-[''] before:inline-block before:absolute before:w-full before:h-3 before:bg-blue-200 before:-z-10 before:bottom-0">
+                    {formatMoney(price)}
+                  </p>
+                </div>
+
+                {/* Reviews */}
+                <div className="mt-6">
+                  <h3 className="sr-only">Description</h3>
+
+                  <div
+                    className="text-sm text-gray-500 space-y-6 max-w-xs mt-10 leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: description }}
+                  />
+                </div>
+
+                <form className="mt-6" onSubmit={handleSubmit}>
+                  <div className="mt-10 flex sm:flex-co">
+
+                    <button
+                      type="submit"
+                      className="flex items-center gap-3 uppercase max-w-xs flex-1 bg-blue-600 border border-transparent rounded-xl py-4 px-8 justify-center text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-blue-500 sm:w-full"
+                    >
+                      <ShoppingCartIcon
+                        className="h-4 w-4 flex-shrink-0"
+                        aria-hidden="true"
+                      />
+                      Add to bag
+                    </button>
+                    <button
+                      type="button"
+                      className="ml-4 py-3 px-3 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500"
+                    >
+                      <HeartIcon
+                        onClick={isFavorite ? removeFavorite : addFavorite}
+                        className={`${isFavorite && "text-red-400"
+                          } "h-6 w-6 flex-shrink-0"`}
+                        aria-hidden="true"
+                      />
+                      <span className="sr-only">Add to favorites</span>
+                    </button>
+                  </div>
+                </form>
+                <section aria-labelledby="details-heading" className="mt-12">
+                  <h2 id="details-heading" className="sr-only">
+                    Additional details
+                  </h2>
+                  <div className="border-t divide-y divide-gray-200">
+                    {/* product.details.map((detail) => (
                     <Disclosure as="div" key={detail.name}>
                       {({ open }) => (
                         <>
@@ -300,15 +253,15 @@ export default function SingleProduct({ product: singleProduct }) {
                         </>
                       )}
                     </Disclosure>
-                  ))}
-                </div>
-              </section>
+                  )) */}
+                  </div>
+                </section>
+              </div>
             </div>
-
-
           </div>
         </div>
       </div>
-    </div>
+    </>
+
   );
 }

@@ -85,7 +85,7 @@ export default function Products({ products }) {
 
   return (
     <div className="bg-white">
-      <div>
+      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-32">
         {/* Mobile filter dialog */}
         <Transition.Root show={mobileFiltersOpen} as={Fragment}>
           <Dialog

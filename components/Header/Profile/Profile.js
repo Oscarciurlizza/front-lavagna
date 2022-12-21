@@ -7,7 +7,6 @@ function classNames(...classes) {
 }
 
 export default function Profile({ user, logout }) {
-  console.log(user);
   return (
     <Menu as="div" className="relative">
       <div>

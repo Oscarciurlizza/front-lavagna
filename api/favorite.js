@@ -17,7 +17,7 @@ export async function addFavoriteApi(idUser, idProduct, logout) {
     if (dataFound.data.length > 0 || !dataFound) {
       return "este juego ya lo tienes en tu lista de favoritos";
     } else {
-      const url = `${BASE_PATH}/api/favorites?populate=*`;
+      const url = `${BASE_PATH}/api/favorites?populate=%2A`;
       const params = {
         method: "POST",
         headers: {
@@ -25,6 +25,7 @@ export async function addFavoriteApi(idUser, idProduct, logout) {
         },
         body: JSON.stringify({ data: { user: idUser, product: idProduct } }),
       };
+      console.log(params);
       const result = await authFetch(url, params, logout);
       return result;
     }

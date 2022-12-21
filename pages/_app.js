@@ -55,14 +55,7 @@ function MyApp({ Component, pageProps }) {
       router.push("/");
     }
   };
-  const addProduct = (product) => {
-    const token = getToken();
-    if (token) {
-      addProductCart(product);
-    } else {
-      toastError("primero inicia sesion");
-    }
-  };
+
   const authData = useMemo(
     () => ({
       auth,

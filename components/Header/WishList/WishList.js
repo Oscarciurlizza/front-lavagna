@@ -67,7 +67,7 @@ export default function WishList({ favoritesProducts }) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   return (
-    <main className="py-16 sm:py-20">
+    <main className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-32">
       <div className="flex items-baseline justify-between border-b border-gray-200 pb-6">
         <h1 className="text-3xl font-normal tracking-tight text-gray-900">
           My wishlist
@@ -182,7 +182,7 @@ function Product({ favoriteProduct }) {
               <span aria-hidden="true" className="absolute inset-0" />
               {title}
             </h3>
-            <p className="mt-1 text-sm text-gray-500">{}</p>
+            <p className="mt-1 text-sm text-gray-500">{ }</p>
           </div>
           <p className="text-sm font-medium text-gray-900">S/.{price}</p>
         </div>

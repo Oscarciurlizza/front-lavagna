@@ -17,7 +17,7 @@ export default function wishlist() {
 
   return (
     <Layout title="Ecommerce - wishlist">
-      {!favoritesProducts ? (
+      {favoritesProducts === null ? (
         <h1>no hay productos</h1>
       ) : (
         <WishList favoritesProducts={favoritesProducts} />

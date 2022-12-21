@@ -10,22 +10,11 @@ import SingleProduct from "../components/SingleProduct/SingleProduct";
 import { BASE_PATH } from "../utils/constants";
 
 export default function Home({ categories, drinks, happy, productOverview }) {
-  const [products, setProducts] = useState(null);
-  console.log(drinks)
-
-  useEffect(() => {
-    (async () => {
-      const response = await getLastProductsApi(0, 12);
-      setProducts(response.data || []);
-    })();
-  }, []);
-
   return (
-    <Layout title="Lavagna - Home">
-      <Navbar categories={categories} />
+    <Layout title="Lavagna - Home" >
       <Banner />
       <Services />
-      {!products && <span className="loader"></span>}
+      {!drinks && <span className="loader"></span>}
       {drinks === null ? (
         <h2>ho hay juegos</h2>
       ) : (
@@ -50,7 +39,7 @@ export default function Home({ categories, drinks, happy, productOverview }) {
 export async function getServerSideProps() {
   const resCategory = await fetch(`${BASE_PATH}/api/categories?populate=*`);
   const resDrinks = await fetch(
-    `${BASE_PATH}/api/products?populate=*&filters[category][url][$eq]=drinks-and-alcohol`
+    `${BASE_PATH}/api/products?populate=*&filters[category][url][$eq]=drinks-and-alcohol&pagination[start]=0&pagination[limit]=12`
   );
   const resHappy = await fetch(
     `${BASE_PATH}/api/products?populate=*&filters[category][url][$eq]=happy-hour-1`
